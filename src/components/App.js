@@ -13,7 +13,9 @@ import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api';
+import * as auth from '../utils/auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useHistory } from 'react-router-dom';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -26,6 +28,13 @@ function App() {
 
   const [currentUser, setCurrentUser] = React.useState({});
 
+  const [isInfoToolTipOpen, setisInfoToolTipOpen] = React.useState(false);
+  const [toolTipStatus, setToolTipStatus] = React.useState('');
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+
+  const history = useHistory();
+
   React.useEffect(() => {
     api
       .getAppInfo()
@@ -34,6 +43,24 @@ function App() {
         setCards(cardData);
       })
       .catch((err) => console.log(err));
+  }, []);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setIsLoggedIn(true);
+            history.push('/');
+          } else {
+            localStorage.removeItem('jwt');
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   function handleEditProfileClick() {
@@ -113,29 +140,76 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function onRegister({ email, password }) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res.data._id) {
+          setToolTipStatus('success');
+          setisInfoToolTipOpen(true);
+          history.pushState('/signin');
+        } else {
+          setToolTipStatus('fail');
+          setisInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        setToolTipStatus('fail');
+        setisInfoToolTipOpen(true);
+      });
+  }
+
+  function onLogin({ email, password }) {
+    auth
+      .login(email, password)
+      .then((res) => {
+        if (res.token) {
+          setIsLoggedIn(true);
+          setEmail(email);
+          localStorage.setItem('jwt', res.token);
+          history.push('/');
+        } else {
+          setToolTipStatus('fail');
+          setisInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        setToolTipStatus('fail');
+        setisInfoToolTipOpen(true);
+      });
+  }
+
+  function onSignOut() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    history.push('/signin');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header eamil={email} onSignOut={onSignOut} />
         <Switch>
-          {/* <ProtectedRoute exact path="/" loggedIn={isLoggedIn}> */}
-          <Main
-            onEditProfileClick={handleEditProfileClick}
-            onAddPlaceClick={handleAddPlaceClick}
-            onEditAvatarClick={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            cards={cards}
-          />
-          {/* </ProtectedRoute> */}
-          {/* <Route path="/signup"></Route>
+          <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
+            <Main
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+            />
+          </ProtectedRoute>
+          <Route path="/signup">
+            <Register onRegister={onRegister} />
+          </Route>
           <Route path="/signin">
-            <Login onLogin={onRegister} />
+            <Login onLogin={onLogin} />
           </Route>
           <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
         <EditProfilePopup
@@ -163,6 +237,11 @@ function App() {
         />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <InfoTooltip
+          isOpen={isInfoToolTipOpen}
+          onClose={closeAllPopups}
+          status={toolTipStatus}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
