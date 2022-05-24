@@ -18,36 +18,33 @@ function Register({ onRegister }) {
       <form className="login-form__form" onSubmit={handleSubmit}>
         <div className="login-form__content">
           <h3 className="login-form__title">Sign up</h3>
-          <label className="login-form__input">
-            <input
-              className="login-form__textfield"
-              name="name"
-              placeholder="email"
-              id="email"
-              type="text"
-              required
-              onChange={setEmail}
-            />
-          </label>
-          <label className="login-form__content">
-            <input
-              className="login-form__textfield"
-              name="password"
-              placeholder="password"
-              id="password"
-              type="text"
-              required
-              onChange={setPassword}
-            />
-          </label>
+
+          <input
+            className="login-form__input"
+            name="name"
+            placeholder="email"
+            id="email"
+            type="text"
+            required
+            onChange={setEmail}
+          />
+          <input
+            className="login-form__input"
+            name="password"
+            placeholder="password"
+            id="password"
+            type="password"
+            required
+            onChange={setPassword}
+          />
         </div>
         <div className="login-form__content">
           <button className="login-form__button" type="submit">
             Sign up
           </button>
-          <p className='"login-form__text'>
-            Already a member?
-            <Link className="login-form__link" to="/signup">
+          <p className="login-form__text">
+            Already a member?{' '}
+            <Link className="login-form__link" to="/signin">
               Log in here!
             </Link>
           </p>

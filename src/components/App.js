@@ -13,7 +13,7 @@ import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api';
-import * as auth from '../utils/auth';
+import auth from '../utils/auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useHistory } from 'react-router-dom';
 
@@ -80,6 +80,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    setisInfoToolTipOpen(false);
   }
 
   function handleCardClick(card) {

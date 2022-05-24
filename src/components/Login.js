@@ -19,35 +19,31 @@ function Login({ onLogin }) {
       <form className="login-form__form" onSubmit={handleSubmit}>
         <div className="login-form__content">
           <h3 className="login-form__title">Log in</h3>
-          <label className="login-form__input">
-            <input
-              className="login-form__textfield"
-              name="name"
-              placeholder="email"
-              id="email"
-              type="text"
-              required
-              onChange={setEmail}
-            />
-          </label>
-          <label className="login-form__content">
-            <input
-              className="login-form__textfield"
-              name="password"
-              placeholder="password"
-              id="password"
-              type="text"
-              required
-              onChange={setPassword}
-            />
-          </label>
+          <input
+            className="login-form__input"
+            name="name"
+            placeholder="Email"
+            id="email"
+            type="text"
+            required
+            onChange={setEmail}
+          />
+          <input
+            className="login-form__input"
+            name="password"
+            placeholder="Password"
+            id="password"
+            type="password"
+            required
+            onChange={setPassword}
+          />
         </div>
         <div className="login-form__content">
           <button className="login-form__button" type="submit">
             Sign in
           </button>
-          <p className='"login-form__text'>
-            Not a member yet?
+          <p className="login-form__text">
+            Not a member yet?{' '}
             <Link className="login-form__link" to="/signup">
               Sign up here!
             </Link>
