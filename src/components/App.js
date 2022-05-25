@@ -160,9 +160,9 @@ function App() {
       });
   }
 
-  function onLogin(email, password) {
+  function onLogin({ email, password }) {
     auth
-      .login(email, password)
+      .login({ email, password })
       .then((res) => {
         if (res.token) {
           setIsLoggedIn(true);

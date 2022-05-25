@@ -6,6 +6,11 @@ function Login({ onLogin }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  React.useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     const userData = {
@@ -25,8 +30,9 @@ function Login({ onLogin }) {
             placeholder="Email"
             id="email"
             type="text"
-            required
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="login-form__input"
@@ -34,8 +40,9 @@ function Login({ onLogin }) {
             placeholder="Password"
             id="password"
             type="password"
-            required
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div className="login-form__content">

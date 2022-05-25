@@ -6,7 +6,7 @@ function InfoTooltip({ isOpen, onClose, status }) {
   return (
     <div className={`modal ${isOpen && 'modal_open'}`}>
       <div className="modal__content">
-        <form className="modal__form">
+        <div className="modal__form">
           <button
             type="button"
             className="modal__close-button"
@@ -27,7 +27,7 @@ function InfoTooltip({ isOpen, onClose, status }) {
               </p>
             </div>
           )}
-        </form>
+        </div>
       </div>
     </div>
   );

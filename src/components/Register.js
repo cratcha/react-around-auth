@@ -5,6 +5,11 @@ function Register({ onRegister }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  React.useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     const userData = {
@@ -25,6 +30,7 @@ function Register({ onRegister }) {
             placeholder="email"
             id="email"
             type="text"
+            value={email}
             required
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -34,6 +40,7 @@ function Register({ onRegister }) {
             placeholder="password"
             id="password"
             type="password"
+            value={password}
             required
             onChange={(e) => setPassword(e.target.value)}
           />
