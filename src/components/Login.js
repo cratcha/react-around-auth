@@ -26,7 +26,7 @@ function Login({ onLogin }) {
             id="email"
             type="text"
             required
-            onChange={setEmail}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="login-form__input"
@@ -35,7 +35,7 @@ function Login({ onLogin }) {
             id="password"
             type="password"
             required
-            onChange={setPassword}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="login-form__content">

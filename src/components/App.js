@@ -141,14 +141,14 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function onRegister({ email, password }) {
+  function onRegister(email, password) {
     auth
       .register(email, password)
       .then((res) => {
         if (res.data._id) {
           setToolTipStatus('success');
           setisInfoToolTipOpen(true);
-          history.pushState('/signin');
+          history.push('/signin');
         } else {
           setToolTipStatus('fail');
           setisInfoToolTipOpen(true);
@@ -160,7 +160,7 @@ function App() {
       });
   }
 
-  function onLogin({ email, password }) {
+  function onLogin(email, password) {
     auth
       .login(email, password)
       .then((res) => {

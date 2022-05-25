@@ -49,3 +49,6 @@
 @import url("./blocks/modal/__image/modal__image.css");
 @import url("./blocks/modal/__content/_type/modal__content_type_image.css");
 @import url("./blocks/modal/__delete-button/modal__delete-button.css");
+@import url("./blocks/modal/__status/modal__status.css");
+@import url("./blocks/modal/__icon/modal__icon.css");
+@import url("./blocks/modal/__status-message/modal__status-message.css");

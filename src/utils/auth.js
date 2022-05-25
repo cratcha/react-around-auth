@@ -4,20 +4,16 @@ class Auth {
     this._headers = headers;
   }
 
+  _handleServerResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  }
+
   register({ email, password }) {
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          return response.json();
-        }
-      })
-      .then((res) => {
-        return res;
-      });
+    }).then(this._handleServerResponse);
   }
 
   login({ email, password }) {
@@ -25,9 +21,7 @@ class Auth {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ email, password }),
-    }).then((response) => {
-      return response.json();
-    });
+    }).then(this._handleServerResponse);
   }
 
   checkToken(token) {
@@ -37,15 +31,7 @@ class Auth {
         ...this._headers,
         Authorization: `Bearer ${token}`,
       },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-      })
-      .then((res) => {
-        return res;
-      });
+    }).then(this._handleServerResponse);
   }
 }
 
