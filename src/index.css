@@ -4,6 +4,9 @@
 @import url("./blocks/header/header.css");
 @import url("./blocks/header/__auth-link/header__auth-link.css");
 @import url("./blocks/header/__logo/header__logo.css");
+@import url("./blocks/header/__user/header__user.css");
+@import url("./blocks/header/__logout/header__logout.css");
+@import url("./blocks/header/__auth-wrapper/header__auth-wrapper.css");
 @import url("./blocks/login-form/login-form.css");
 @import url("./blocks/login-form/__form/login-form__form.css");
 @import url("./blocks/login-form/__content/login-form__content.css");

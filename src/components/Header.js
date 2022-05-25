@@ -11,16 +11,16 @@ function Header({ onSignOut, email }) {
     <header className="header">
       <img src={logo} alt="logo Practicum" className="header__logo" />
       <Route exact path="/">
-        <div>
+        <div className="header__auth-wrapper">
           <p className="header__user">{email}</p>
           <button className="header__logout" onClick={handleSignOut}>
-            Sign out
+            Log out
           </button>
         </div>
       </Route>
       <Route path="/signup">
         <Link className="header__auth-link" to="signin">
-          Sign in
+          Login
         </Link>
       </Route>
       <Route path="/signin">

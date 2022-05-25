@@ -40,7 +40,7 @@ function Login({ onLogin }) {
         </div>
         <div className="login-form__content">
           <button className="login-form__button" type="submit">
-            Sign in
+            Log in
           </button>
           <p className="login-form__text">
             Not a member yet?{' '}
